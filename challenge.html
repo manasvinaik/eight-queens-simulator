@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>8 Queens Challenge</title>
+  <link rel="icon" type="image/png" href="media/icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --red: #c63543;
+      --mygrey: #dbd9d5;
+      --blackish: #2a2a2a;
+      --lightgrey: #f6f2eb;
+    }
+    @font-face {
+    font-family: 'Goudy';
+    src: url('media/goudy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    @font-face {
+    font-family: 'Goudy Italic';
+    src: url('media/goudy-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    }
+
+    @font-face {
+    font-family: 'Dungeons';
+    src: url('media/dungeons.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    body {
+    font-family: 'Goudy', serif;
+    }
+
+    .cell {
+      width: 50px;
+      height: 50px;
+      position: relative;
+      z-index: 0;
+    }
+
+    .black {
+      background-color: #676767;
+    }
+
+    .white {
+      background-color: #f6f2eb;
+    }
+
+    .queen::before {
+      content: "♛";
+      font-size: 2rem;
+      display: block;
+      text-align: center;
+      color: #c63543;
+      position: relative;
+      z-index: 20;
+    }
+
+    .correct {
+      background-color: #4ade80 !important;
+      z-index: 15;
+    }
+
+    .highlight::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--red);
+      opacity: 0.35;
+      z-index: 10;
+    }
+
+    .celebrate {
+      animation: celebration 1s ease infinite;
+    }
+
+    @keyframes celebration {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
+</head>
+<body class="bg-[#ffffff] min-h-full flex flex-col items-center px-4 pt-24 pb-12 relative overflow-x-hidden">
+  <nav class="w-full bg-[#676767] py-3 px-6 fixed top-0 left-0 z-20">
+    <div class="flex space-x-6 text-md font-medium text-[#f6f2eb]">
+      <a href="simul.html" class="hover:underline">8-queens simulator</a>
+      <p>|</p>
+      <a href="challenge.html" class="hover:underline">challenge</a>
+      <p>|</p>
+      <a href="index.html" class="hover:underline">user guide</a>
+    </div>
+  </nav>
+
+  <div class="absolute top-0 left-0 w-full h-[60vh] bg-repeat z-0" 
+     style="background-image: url('media/tilemuted.png');">
+    </div>
+
+  <div class="bg-[#2a2a2a] rounded-3xl p-6 md:p-10 w-full max-w-6xl shadow-lg z-10 mt-4">
+    <div class="rounded-2xl border border-[#dbd9d5] p-6 md:p-8 text-[#dbd9d5] overflow-x-auto">
+      <h1 class="text-5xl text-center mb-2" style="font-family: 'Dungeons', serif; color: var(--lightgrey);">8-Queens Challenge</h1>
+      <p class="text-center text-[#f6f2eb] mb-6 text-md" style="font-family: 'Goudy Italic', serif;">Place all 7 remaining queens correctly</p>
+
+      <div class="flex flex-col lg:flex-row gap-6 items-start justify-center">
+        <div id="log" class="w-full lg:w-64 text-sm bg-[#f6f2eb] text-[#2a2a2a] p-4 rounded-xl shadow overflow-y-auto h-[460px] font-mono">
+          <strong>Placement Log</strong><br><br>
+        </div>
+
+        <div class="flex flex-col items-center gap-2">
+          <div class="grid grid-cols-[20px_repeat(8,50px)] mb-1" id="colLabels">
+            <div></div>
+            <div class="text-center font-bold text-sm flex items-center justify-center">1</div>
+            <div class="text-center font-bold text-sm flex items-center justify-center">2</div>
+            <div class="text-center font-bold text-sm flex items-center justify-center">3</div>
+            <div class="text-center font-bold text-sm flex items-center justify-center">4</div>
+            <div class="text-center font-bold text-sm flex items-center justify-center">5</div>
+            <div class="text-center font-bold text-sm flex items-center justify-center">6</div>
+            <div class="text-center font-bold text-sm flex items-center justify-center">7</div>
+            <div class="text-center font-bold text-sm flex items-center justify-center">8</div>
+          </div>
+          <div id="boardWrapper" class="grid grid-rows-8 gap-0"></div>
+        </div>
+      </div>
+
+      <div class="flex gap-4 justify-center mt-6 ml-48">
+        <button id="hintBtn" class="bg-[#c63543] text-[#f6f2eb] px-6 py-2 rounded-xl shadow">Hint</button>
+        <button id="undoBtn" class="bg-[#c63543] text-[#f6f2eb] px-6 py-2 rounded-xl shadow">Undo</button>
+        <button id="resetBtn" class="bg-[#676767] text-[#f6f2eb] px-6 py-2 rounded-xl shadow">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center text-[#c63543] mt-10 text-xl" style="font-family: 'Goudy Italic', serif;">
+    ✧
+    <br>
+    <span class="text-[#c63543] text-2xl">a project by</span>
+    <br>
+    <span class="text-[#c63543] text-2xl">16010123189 - Manasvi Naik</span>
+    <br>
+    <span class="text-[#c63543] text-2xl">16010123195 - Menaka Jadhav</span>
+    <br>
+    <span class="text-[#c63543] text-2xl">16010123161 - Johann Jackson</span>
+    <br>
+    ✧
+    </div>
+
+  <audio id="successSound" src="media/ding.mp3"></audio>
+
+  <script>
+    const boardWrapper = document.getElementById("boardWrapper");
+    const logElement = document.getElementById("log");
+    const successSound = document.getElementById("successSound");
+
+    let board = Array(8).fill().map(() => Array(8).fill(0));
+    let placedCount = 0;
+    let solution = [];
+    let hintIndex = 1;
+    let moveHistory = [];
+
+    const solutions = [
+      [0, 4, 7, 5, 2, 6, 1, 3],
+      [1, 3, 5, 7, 2, 0, 6, 4],
+      [3, 1, 7, 5, 0, 2, 4, 6],
+      [2, 5, 7, 0, 3, 6, 4, 1],
+      [4, 6, 0, 2, 7, 5, 3, 1],
+      [0, 2, 4, 6, 1, 3, 5, 7],
+      [1, 3, 5, 0, 2, 4, 6, 7],
+    ];
+
+    function log(msg) {
+      logElement.innerHTML += `→ ${msg}<br>`;
+      logElement.scrollTop = logElement.scrollHeight;
+    }
+
+    function clearLog() {
+      logElement.innerHTML = "<strong>Placement Log</strong><br><br>";
+    }
+
+    function clearHighlights() {
+      document.querySelectorAll(".highlight").forEach(c => c.classList.remove("highlight"));
+    }
+
+    function markAllUnsafe() {
+      clearHighlights();
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          if (board[i][j] === 1) {
+            for (let k = 0; k < 8; k++) {
+              highlightCell(i, k);
+              highlightCell(k, j);
+            }
+            for (let d = -7; d <= 7; d++) {
+              highlightCell(i + d, j + d);
+              highlightCell(i + d, j - d);
+            }
+          }
+        }
+      }
+    }
+
+    function highlightCell(row, col) {
+      if (row >= 0 && row < 8 && col >= 0 && col < 8) {
+        document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`)?.classList.add("highlight");
+      }
+    }
+
+    function placeQueen(row, col, initial = false) {
+      board[row][col] = 1;
+      const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+      cell.classList.add("queen", "correct");
+      if (!initial) {
+        moveHistory.push({ row, col });
+      }
+      placedCount++;
+      if (initial) {
+        log(`Initial queen placed at (${row + 1}, ${col + 1})`);
+      } else {
+        log(`Queen placed at (${row + 1}, ${col + 1})`);
+      }
+      markAllUnsafe();
+    }
+
+    function undoLastMove() {
+      if (moveHistory.length === 0) {
+        log("⚠ No moves to undo.");
+        return;
+      }
+      const { row, col } = moveHistory.pop();
+      board[row][col] = 0;
+      const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+      cell.classList.remove("queen", "correct");
+      placedCount--;
+      log(`⏪ Undid queen at (${row + 1}, ${col + 1})`);
+      clearHighlights();
+      markAllUnsafe();
+    }
+
+    function handleUserPlace(row, col) {
+      if (board[row][col] === 1 || placedCount >= 8) return;
+      if (solution[row] !== col) {
+        log(`⚠ Cannot place queen at (${row + 1}, ${col + 1}) — Incorrect position for solution`);
+        return;
+      }
+      placeQueen(row, col);
+      if (placedCount === 8) {
+        log("🎉 All queens placed correctly!");
+        document.body.classList.add("celebrate");
+        successSound.play();
+        setTimeout(() => document.body.classList.remove("celebrate"), 1500);
+      }
+    }
+
+    function showHint() {
+      if (hintIndex >= 8) return;
+      const row = hintIndex;
+      const col = solution[row];
+      if (board[row][col] === 0) {
+        placeQueen(row, col);
+      } else {
+        log(`Hint: Try placing at (${row + 1}, ${col + 1}) — already occupied or unsafe`);
+      }
+      hintIndex++;
+    }
+
+    function createBoard() {
+      boardWrapper.innerHTML = "";
+      board = Array(8).fill().map(() => Array(8).fill(0));
+      placedCount = 0;
+      hintIndex = 1;
+      moveHistory = [];
+      clearLog();
+      clearHighlights();
+      solution = solutions[Math.floor(Math.random() * solutions.length)];
+
+      for (let row = 0; row < 8; row++) {
+        const rowEl = document.createElement("div");
+        rowEl.classList.add("grid", "grid-cols-[20px_repeat(8,50px)]");
+
+        const label = document.createElement("div");
+        label.textContent = row + 1;
+        label.className = "text-center font-bold text-sm flex items-center justify-center h-[50px]";
+        rowEl.appendChild(label);
+
+        for (let col = 0; col < 8; col++) {
+          const cell = document.createElement("div");
+          cell.classList.add("cell", (row + col) % 2 === 0 ? "white" : "black");
+          cell.setAttribute("data-row", row);
+          cell.setAttribute("data-col", col);
+          cell.addEventListener("click", () => handleUserPlace(row, col));
+          rowEl.appendChild(cell);
+        }
+
+        boardWrapper.appendChild(rowEl);
+      }
+
+      placeQueen(0, solution[0], true);
+    }
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      document.body.classList.remove("celebrate");
+      createBoard();
+    });
+
+    document.getElementById("hintBtn").addEventListener("click", showHint);
+    document.getElementById("undoBtn").addEventListener("click", undoLastMove);
+
+    createBoard();
+  </script>
+</body>
+</html>

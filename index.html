@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>8 Queens Simulator Guide</title>
+  <link rel="icon" type="image/png" href="media/icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --red: #c63543;
+      --mygrey: #dbd9d5;
+      --blackish: #2a2a2a;
+      --lightgrey: #f6f2eb;
+    }
+    @font-face {
+    font-family: 'Goudy';
+    src: url('media/goudy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    @font-face {
+    font-family: 'Goudy Italic';
+    src: url('media/goudy-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    }
+
+    @font-face {
+    font-family: 'Dungeons';
+    src: url('media/dungeons.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    body {
+    font-family: 'Goudy', serif;
+    }
+
+  </style>
+</head>
+<body class="bg-[#ffffff] min-h-full flex flex-col items-center px-4 pt-24 pb-12 relative overflow-x-hidden">
+
+
+    <!-- Navbar -->
+    <nav class="w-full bg-[#676767] py-3 px-6 fixed top-0 left-0 z-20">
+      <div class="flex space-x-6 text-md font-medium text-[#f6f2eb]">
+        <a href="simul.html" class="hover:underline">8-queens simulator</a>
+        <p>|</p>
+        <a href="challenge.html" class="hover:underline">challenge</a>
+        <p>|</p>
+        <a href="index.html" class="hover:underline">user guide</a>
+      </div>
+    </nav>
+  
+  <!-- Pseudo-background div -->
+  <div class="absolute top-0 left-0 w-full h-[60vh] bg-repeat z-0" 
+     style="background-image: url('media/tilemuted.png');">
+    </div>
+
+
+  <!-- card -->
+  <div class="bg-[#2a2a2a] rounded-3xl p-6 h-[1200px] md:p-10 w-full max-w-2xl shadow-lg z-10">
+    <div class="rounded-2xl border border-[#dbd9d5] p-6 h-[1100px] md:p-8 text-[#dbd9d5] space-y-4 overflow-y-auto text-center">
+      <h3 class="text-lg font-semibold text-[#c63543] uppercase tracking-wider">How to use</h3>
+      <h1 class="text-6xl text-[#f6f2eb]" style="font-family: 'Dungeons', serif;">8-queens simulator</h1>
+      <img src="media/chess1-1.jpg" alt="Queen icon" class="mx-auto w-64 h-64 rounded-full" />
+      <!-- Simulator vers -->
+    <div class="text-left space-y-3">
+      <h2 class="text-2xl text-[#c63543] font-semibold uppercase tracking-wide text-center">Simulator Mode</h2>
+      <p class="text-[#f6f2eb] text-base md:text-lg leading-relaxed">
+        Click the <strong class="text-[#c63543]">Solve</strong> button to let the simulator automatically solve the 8-Queens puzzle.
+      </p>
+      <p class="text-[#f6f2eb] text-base md:text-lg leading-relaxed">
+        The algorithm places one queen per row while ensuring no two queens attack each other. You'll see a live log of the algorithm.
+      </p>
+      <p class="text-[#f6f2eb] text-base md:text-lg leading-relaxed">
+        Once solved, a ding will play! You can reset anytime using the <strong class="text-[#c63543]">Reset</strong> button.
+      </p>
+    </div>
+
+    <div class="text-center text-[#f6f2eb] my-6 text-xl">♛ ♛ ♛</div>
+
+    <!-- Challenge Vers -->
+    <div class="text-left space-y-3">
+      <h2 class="text-2xl text-[#c63543] font-semibold uppercase tracking-wide text-center">Challenge Mode</h2>
+      <p class="text-[#f6f2eb] text-base md:text-lg leading-relaxed">
+        Ready to take on the puzzle yourself? In Challenge mode, you’ll need to place all 8 queens <strong class="text-[#c63543]">manually</strong>.
+      </p>
+      <p class="text-[#f6f2eb] text-base md:text-lg leading-relaxed">
+        <strong class="text-[#c63543]">Click on tiles</strong> to place queens one by one. If you place a queen in an unsafe position, she won't get placed.
+      </p>
+      <p class="text-[#f6f2eb] text-base md:text-lg leading-relaxed">
+        <strong class="text-[#c63543]">Use the hints</strong> to figure out safe spots! When all queens are correctly placed, you’ll receive a victory message.
+      </p>
+
+       <!-- Buttons -->
+    <div class="pt-6 flex justify-center space-x-6">
+      <a href="simul.html" class="bg-transparent border border-[#c63543] hover:bg-[#c63543] hover:text-[#f6f2eb] text-[#c63543] font-semibold text-xl px-6 py-2 rounded-2xl transition duration-300 ease-in-out shadow-md">
+        Simulation➶
+      </a>
+      <a href="challenge.html" class="bg-transparent border border-[#c63543] hover:bg-[#c63543] hover:text-[#f6f2eb] text-[#c63543] font-semibold text-xl px-6 py-2 rounded-2xl transition duration-300 ease-in-out shadow-md">
+        Challenge➶
+      </a>
+    </div>
+    </div>
+        </div>
+      </div>
+
+
+    <!-- Credit -->
+  <div class="text-center text-[#c63543] mt-10 text-xl" style="font-family: 'Goudy Italic', serif;">
+    ✧
+    <br>
+    <span class="text-[#c63543] text-2xl">a project by</span>
+    <br>
+    <span class="text-[#c63543] text-2xl">16010123189 - Manasvi Naik</span>
+    <br>
+    <span class="text-[#c63543] text-2xl">16010123195 - Menaka Jadhav</span>
+    <br>
+    <span class="text-[#c63543] text-2xl">16010123161 - Johann Jackson</span>
+    <br>
+    ✧
+    </div>
+
+</body>
+</html>
