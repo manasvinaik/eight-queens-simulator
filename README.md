@@ -1,6 +1,6 @@
 # ♛ 8-Queens Problem Simulator
 
-A visual simulation of the 8-Queens problem using the **backtracking algorithm**.
+A visual simulation of the 8-Queens problem using the **backtracking algorithm** made for a college assignment KJSCE SY 24-25.
 
 <p align="center">
   ✧ See the algorithm's logic unfold in real time ✧
@@ -10,8 +10,7 @@ A visual simulation of the 8-Queens problem using the **backtracking algorithm**
 
 ## What is the 8-Queens Problem?
 
-The **8-Queens problem** asks: Can you place 8 queens on a standard 8×8 chessboard such that no two queens threaten each other?  
-This means no two queens can share the same **row, column, or diagonal**.
+Place 8 queens on a standard 8×8 chessboard such that no two queens threaten each other? This means no two queens can share the same **row, column, or diagonal**.
 
 This project **visually demonstrates** how a **backtracking algorithm** finds a valid configuration.
 
@@ -22,10 +21,13 @@ This project **visually demonstrates** how a **backtracking algorithm** finds a 
 - A clean, responsive UI styled with Tailwind CSS
 - Step-by-step queen placement with **algorithm logs**
 - Live progress bar
-- Animated celebration and sound when a solution is found
 - Custom fonts and aesthetic theme
 
 ---
+## Preview
+
+![8 Queens Simulator Screenshot](media/ss1.png)
+![8 Queens Simulator Screenshot](media/ss2.png)
 
 ## Installation & Setup
 
