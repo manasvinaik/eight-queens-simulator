@@ -1,6 +1,6 @@
 # ♛ 8-Queens Problem Simulator
 
-A visual simulation of the 8-Queens problem using the **backtracking algorithm**, made for a college assignment — KJSCE SY 24–25.
+A visual simulation of the 8-Queens problem using the **backtracking algorithm**, made for a college assignment.
 
 ---
 
