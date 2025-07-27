@@ -2,6 +2,7 @@
 
 A visual simulation of the 8-Queens problem using the **backtracking algorithm**, made for a college assignment.
 
+Visit <a href="https://manasvinaik.github.io/eight-queens-simulator/" target="_blank">here</a>
 ---
 
 ## What is the 8-Queens Problem?
